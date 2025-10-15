@@ -1,0 +1,23 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+  <ng-container matColumnDef="task">
+    <th mat-header-cell *matHeaderCellDef>{{ 'PLANNING.TASK' | translate }}</th>
+    <td mat-cell *matCellDef="let row">{{ row.task | translate }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef>{{ 'PLANNING.DATE' | translate }}</th>
+    <td mat-cell *matCellDef="let row">{{ row.date | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef>{{ 'PLANNING.STATUS' | translate }}</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-icon *ngIf="row.status === 'done'" color="primary">check_circle</mat-icon>
+      <mat-icon *ngIf="row.status === 'doing'" color="accent">hourglass_top</mat-icon>
+      <mat-icon *ngIf="row.status === 'todo'" color="warn">schedule</mat-icon>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

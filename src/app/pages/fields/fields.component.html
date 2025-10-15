@@ -1,0 +1,7 @@
+<section class="parcels">
+  <mat-card *ngFor="let parcel of parcels">
+    <h3>{{ parcel.name }}</h3>
+    <p>{{ 'FIELDS.AREA' | translate }} : {{ parcel.area | number:'1.0-2' }} ha</p>
+    <button mat-stroked-button color="primary">{{ 'FIELDS.MANAGE' | translate }}</button>
+  </mat-card>
+</section>

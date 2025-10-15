@@ -1,0 +1,48 @@
+{
+  "NAV": {
+    "WELCOME": "Welcome {{name}}!",
+    "LANGUAGE": "Language",
+    "DASHBOARD": "Dashboard",
+    "FIELDS": "Fields",
+    "PLANNING": "Planning",
+    "ACTIVITIES": "Activities",
+    "WAREHOUSES": "Warehouses",
+    "PRODUCTS": "Products",
+    "SEEDS": "Seeds"
+  },
+  "FIELDS": {
+    "AREA": "Area",
+    "MANAGE": "Manage",
+    "SPRAY": "Spraying",
+    "SOW": "Sowing",
+    "HARVEST": "Harvest",
+    "IRRIGATE": "Irrigation"
+  },
+  "PLANNING": {
+    "TASK": "Task",
+    "DATE": "Date",
+    "STATUS": "Status"
+  },
+  "ACTIVITIES": {
+    "ASSIGNEE": "Assigned to {{name}}",
+    "STATUS": {
+      "pending": "Pending",
+      "in-progress": "In progress",
+      "done": "Done"
+    }
+  },
+  "WAREHOUSES": {
+    "NAME": "Warehouse",
+    "CAPACITY": "Capacity",
+    "OCCUPATION": "Occupation"
+  },
+  "PRODUCTS": {
+    "NAME": "Product",
+    "STOCK": "Stock",
+    "UNIT": "Unit"
+  },
+  "SEEDS": {
+    "YEAR": "Harvest {{year}}",
+    "QUANTITY": "Available quantity: {{quantity}} bags"
+  }
+}
