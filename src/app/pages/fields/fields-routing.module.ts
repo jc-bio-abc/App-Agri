@@ -1,27 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { FieldsListPage } from './pages/fields-list/fields-list.page';
-import { FieldsMapPage } from './pages/fields-map/fields-map.page';
-import { FieldDetailPage } from './pages/field-detail/field-detail.page';
+import { FieldsListPageComponent } from './pages/fields-list/fields-list.page';
+import { FieldsMapPageComponent } from './pages/fields-map/fields-map.page';
+import { FieldDetailPageComponent } from './pages/field-detail/field-detail.page';
 
+// /parcelles est la route racine de ce module lazy (voir app-routing)
 const routes: Routes = [
-  {
-    path: '',
-    component: FieldsListPage
-  },
-  {
-    path: 'carte',
-    component: FieldsMapPage
-  },
-  {
-    path: ':id',
-    component: FieldDetailPage
-  }
+  { path: '', component: FieldsListPageComponent },
+  { path: 'carte', component: FieldsMapPageComponent },
+  { path: ':id', component: FieldDetailPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class FieldsRoutingModule {}
