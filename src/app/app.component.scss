@@ -1,0 +1,30 @@
+.shell {
+  height: 100vh;
+}
+
+.sidenav-header {
+  padding: 1rem;
+  text-align: center;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.mobile-toggle {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  mat-sidenav {
+    width: 260px;
+  }
+
+  .mobile-toggle {
+    display: inline-flex;
+  }
+}

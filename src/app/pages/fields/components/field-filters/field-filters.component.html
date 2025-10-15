@@ -1,0 +1,30 @@
+<mat-card class="filters-card">
+  <mat-toolbar color="primary">
+    <span>Filtres</span>
+    <span class="spacer"></span>
+    <button mat-button type="button" (click)="reset()">Réinitialiser</button>
+  </mat-toolbar>
+  <form [formGroup]="form" class="filters-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Recherche</mat-label>
+      <input matInput formControlName="search" placeholder="Nom ou code interne" />
+      <button matSuffix mat-icon-button type="button" *ngIf="form.value.search" (click)="form.patchValue({ search: '' })">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Statut</mat-label>
+      <mat-select formControlName="statut" multiple>
+        <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Mode de production</mat-label>
+      <mat-select formControlName="modeProduction" multiple>
+        <mat-option *ngFor="let mode of modeOptions" [value]="mode">{{ mode }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-card>

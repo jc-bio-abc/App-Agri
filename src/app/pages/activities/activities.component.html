@@ -1,0 +1,9 @@
+<mat-nav-list>
+  <a mat-list-item *ngFor="let activity of activities">
+    <span matLine>{{ activity.name | translate }}</span>
+    <span matLine class="secondary">{{ 'ACTIVITIES.ASSIGNEE' | translate:{ name: activity.assignee } }}</span>
+    <mat-chip [color]="activity.status === 'done' ? 'primary' : activity.status === 'in-progress' ? 'accent' : 'warn'" selected>
+      {{ ('ACTIVITIES.STATUS.' + activity.status) | translate }}
+    </mat-chip>
+  </a>
+</mat-nav-list>

@@ -1,0 +1,15 @@
+.filters-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filters-form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
