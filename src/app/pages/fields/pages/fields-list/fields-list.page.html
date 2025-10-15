@@ -1,0 +1,64 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>Parcelles</h1>
+      <p>Vue synthétique des parcelles et accès aux opérations courantes.</p>
+    </div>
+    <span class="spacer"></span>
+    <button mat-flat-button color="primary" (click)="openMap()">
+      <mat-icon>map</mat-icon>
+      Carte
+    </button>
+    <button mat-stroked-button (click)="importMock()">Importer (mock)</button>
+  </header>
+
+  <app-field-filters (filtersChange)="onFiltersChange($event)"></app-field-filters>
+
+  <ng-container *ngIf="stats$ | async as stats">
+    <app-field-stats [total]="stats.total" [surface]="stats.surface" [bio]="stats.bio"></app-field-stats>
+  </ng-container>
+
+  <div class="table-wrapper" *ngIf="fields$ | async as fields">
+    <div class="table-actions">
+      <button mat-stroked-button color="primary" (click)="exportCsv(fields)">Exporter CSV</button>
+    </div>
+    <table mat-table [dataSource]="fields" class="mat-elevation-z1">
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let field">
+          <button mat-button color="primary" (click)="openDetail(field)">{{ field.nom }}</button>
+          <div class="subtitle" *ngIf="field.codeInterne">{{ field.codeInterne }}</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="surfaceHa">
+        <th mat-header-cell *matHeaderCellDef>Surface</th>
+        <td mat-cell *matCellDef="let field">{{ field.surfaceHa | number: '1.0-2' }} ha</td>
+      </ng-container>
+
+      <ng-container matColumnDef="statut">
+        <th mat-header-cell *matHeaderCellDef>Statut</th>
+        <td mat-cell *matCellDef="let field">{{ field.statut }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="modeProduction">
+        <th mat-header-cell *matHeaderCellDef>Mode</th>
+        <td mat-cell *matCellDef="let field">
+          <mat-chip color="primary" selected>{{ field.modeProduction }}</mat-chip>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let field">
+          <button mat-icon-button [routerLink]="['./', field.id]"><mat-icon>chevron_right</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <div class="empty" *ngIf="!fields.length">Aucune parcelle ne correspond aux filtres.</div>
+  </div>
+</section>

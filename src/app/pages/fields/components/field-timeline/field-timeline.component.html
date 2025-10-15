@@ -1,0 +1,18 @@
+<mat-card class="timeline-card">
+  <mat-toolbar color="primary">
+    <span>Historique des activités</span>
+  </mat-toolbar>
+  <div class="timeline" *ngIf="events?.length; else empty">
+    <div class="timeline-item" *ngFor="let event of events; trackBy: trackById" [class.highlight]="event.highlight">
+      <div class="dot"></div>
+      <div>
+        <h4>{{ event.date | date: 'mediumDate' }} - {{ event.type }}</h4>
+        <p>{{ event.description }}</p>
+        <button mat-button color="primary" (click)="activitySelected.emit(event.activityId)">Détails</button>
+      </div>
+    </div>
+  </div>
+  <ng-template #empty>
+    <div class="empty">Aucune activité enregistrée.</div>
+  </ng-template>
+</mat-card>

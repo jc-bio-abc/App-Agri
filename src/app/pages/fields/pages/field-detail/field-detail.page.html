@@ -1,0 +1,67 @@
+<section class="detail" *ngIf="field$ | async as field">
+  <header class="detail-header">
+    <div>
+      <h1>{{ field.nom }}</h1>
+      <p>Dernière mise à jour : {{ field.dateMaj | date: 'medium' }}</p>
+    </div>
+    <span class="spacer"></span>
+    <button mat-stroked-button color="primary" (click)="sync(field.id)">Synchroniser les activités</button>
+  </header>
+
+  <div class="info-grid">
+    <mat-card>
+      <mat-card-title>Informations</mat-card-title>
+      <mat-card-content>
+        <p>Surface : {{ field.surfaceHa | number: '1.0-2' }} ha</p>
+        <p>Statut : {{ field.statut }}</p>
+        <p>Mode de production : {{ field.modeProduction }}</p>
+        <p>Irrigation : {{ field.irrigation || 'non renseigné' }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Notes</mat-card-title>
+      <mat-card-content>
+        <p>{{ field.notes || 'Aucune note' }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Historique cultural</mat-card-title>
+      <mat-card-content>
+        <table class="history">
+          <tr>
+            <th>Année</th>
+            <th>Principale</th>
+          </tr>
+          <tr *ngFor="let history of field.histories">
+            <td>{{ history.annee }}</td>
+            <td>{{ history.principale?.nom || '—' }}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <section class="summary" *ngIf="monthlySummary$ | async as monthly">
+    <h2>Activités par mois</h2>
+    <div class="summary-grid">
+      <div class="summary-card" *ngFor="let item of monthly">
+        <h3>{{ item.month }}</h3>
+        <p>Planifiées : {{ item.planned }}</p>
+        <p>Terminées : {{ item.completed }}</p>
+        <p>Annulées : {{ item.cancelled }}</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns">
+    <app-field-timeline [events]="timeline$ | async" (activitySelected)="sync(field.id)"></app-field-timeline>
+    <app-field-actions-form [fieldId]="field.id" (activityCreated)="createActivity($event)"></app-field-actions-form>
+  </div>
+
+  <div class="columns">
+    <app-field-attachments [attachments]="field.attachments || []" (addAttachment)="addAttachment(field)"></app-field-attachments>
+    <app-field-journal [entries]="journalEntries"></app-field-journal>
+  </div>
+</section>
