@@ -1,0 +1,48 @@
+{
+  "NAV": {
+    "WELCOME": "Bienvenue {{name}} !",
+    "LANGUAGE": "Langue",
+    "DASHBOARD": "Tableau de bord",
+    "FIELDS": "Parcelles",
+    "PLANNING": "Planification",
+    "ACTIVITIES": "Activités",
+    "WAREHOUSES": "Entrepôts",
+    "PRODUCTS": "Produits",
+    "SEEDS": "Semences"
+  },
+  "FIELDS": {
+    "AREA": "Surface",
+    "MANAGE": "Gérer",
+    "SPRAY": "Traitement phytosanitaire",
+    "SOW": "Semis",
+    "HARVEST": "Récolte",
+    "IRRIGATE": "Irrigation"
+  },
+  "PLANNING": {
+    "TASK": "Tâche",
+    "DATE": "Date",
+    "STATUS": "Statut"
+  },
+  "ACTIVITIES": {
+    "ASSIGNEE": "Assigné à {{name}}",
+    "STATUS": {
+      "pending": "En attente",
+      "in-progress": "En cours",
+      "done": "Terminée"
+    }
+  },
+  "WAREHOUSES": {
+    "NAME": "Entrepôt",
+    "CAPACITY": "Capacité",
+    "OCCUPATION": "Occupation"
+  },
+  "PRODUCTS": {
+    "NAME": "Produit",
+    "STOCK": "Stock",
+    "UNIT": "Unité"
+  },
+  "SEEDS": {
+    "YEAR": "Récolte {{year}}",
+    "QUANTITY": "Quantité disponible : {{quantity}} sacs"
+  }
+}
