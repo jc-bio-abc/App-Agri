@@ -29,6 +29,26 @@
 
 ## Entrées
 <!-- Les nouvelles entrées sont ajoutées en haut -->
+### [2025-10-20] Préparation merge vers main (résolution finale)
+**Contexte**
+- Problème / besoin initial : Préparer la fusion de la branche `codex/bootstrap-angular-app-and-push-to-github` vers `main` malgré les conflits restants sur les modules Angular et garantir un build Angular 17 strict.
+- Zone de code concernée : angular.json, app.component, modules et pages des fonctionnalités (fields, dashboard, activities, planning, products, seeds, warehouses), template entrepôts, journaux Codex.
+- Contrainte(s) (versions, libs, CI/CD, sécurité, etc.) : Respect des modules lazy Angular 17, TypeScript strict, garde Codex Decision Guard et absence de secrets dans les scripts CI.
+
+**Décision**
+- Changement(s) effectué(s) : Résolution des conflits en harmonisant les classes `PageComponent`, en consolidant les imports Angular/Material/Translate, en corrigeant les bindings Material, en validant le routing lazy vers `parcelles` et en déclarant Leaflet dans `allowedCommonJsDependencies`.
+- Alternatives envisagées (et raisons du rejet) : Ignorer les avertissements CommonJS de Leaflet (rejeté pour garder la visibilité sur l'optimisation future) ; déporter la fusion à une PR ultérieure (rejeté pour débloquer le merge vers main).
+- Risques / impact / compat : Leaflet reste fourni en CommonJS (à surveiller pour une migration ESM) et duplication d'import Material à rationaliser plus tard.
+
+**Détails d’implémentation**
+- Fichiers modifiés : angular.json, src/app/app.component.ts, src/app/app-routing.module.ts, src/app/pages/**/\*.module.ts, src/app/pages/fields/**/*, src/app/pages/warehouses/warehouses.component.html, docs/CODEX_DECISIONS.md, docs/codex-log.jsonl.
+- Commandes exécutées : npm install (échec 403 – dépendances déjà présentes) ; CI=1 NG_CLI_ANALYTICS=false npx ng build --verbose.
+- Résultat du build/test : Build Angular réussi sans avertissement CommonJS (Leaflet autorisé explicitement).
+
+**Étapes suivantes**
+- Actions à planifier : Mutualiser les modules Material récurrents et surveiller la taille des bundles.
+- TODO / suivis : Vérifier que la PR finale vers main passe la GitHub Action Codex Decision Guard et compléter la documentation utilisateur si nécessaire.
+
 
 ### [2025-10-20] Résolution finale conflits PR #4
 **Contexte**
