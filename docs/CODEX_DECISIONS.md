@@ -28,24 +28,24 @@
 ---
 
 ## Entrées
-### [2025-10-20] Initialisation du journal Codex
+<!-- Les nouvelles entrées sont ajoutées en haut -->
+
+### [2025-10-20] Ajout du système de traçabilité Codex
 **Contexte**  
-- Problème / besoin initial : Manque de traçabilité des décisions techniques effectuées par Codex sur le dépôt.
-- Zone de code concernée : Documentation projet (`docs/`).
-- Contrainte(s) (versions, libs, CI/CD, sécurité, etc.) : Format imposé par la demande utilisateur, compatibilité avec suivi Git.
+- Problème / besoin initial : Absence de processus structuré pour tracer les décisions techniques prises par Codex.  
+- Zone de code concernée : Documentation (`docs/`), automatisation CI (`.github/workflows/`), scripts d'outillage (`scripts/`).  
+- Contrainte(s) (versions, libs, CI/CD, sécurité, etc.) : Nécessité d'une vérification CI bloquante, compatibilité GitHub Actions, dépendance à Node.js 20.
 
 **Décision**  
-- Changement(s) effectué(s) : Création d'un journal des décisions standardisé (`docs/CODEX_DECISIONS.md`) comprenant un modèle d'entrée et une section dédiée aux enregistrements futurs.
-- Alternatives envisagées (et raisons du rejet) : Utiliser un outil externe ou un format différent (rejeté pour centraliser la documentation dans le dépôt conformément à l'objectif).
-- Risques / impact / compat : Faible ; nécessite discipline future pour maintenir les entrées à jour.
+- Changement(s) effectué(s) : Création des journaux Codex (Markdown et JSONL), ajout de scripts CLI pour journaliser, mise en place d'un template ADR et d'un modèle de PR, ajout d'une GitHub Action bloquant les changements de code sans mise à jour des journaux.  
+- Alternatives envisagées (et raisons du rejet) : Utiliser un outil externe de traçabilité (rejeté pour éviter les dépendances externes) ; vérifier manuellement les journaux lors des revues (rejeté car non automatisable).  
+- Risques / impact / compat : Risque faible mais nécessite l'installation de `jq` pour le script shell ; la CI échouera si les journaux ne sont pas maintenus à jour.
 
 **Détails d’implémentation**  
-- Fichiers modifiés : `docs/CODEX_DECISIONS.md`.
-- Commandes exécutées : `mkdir -p docs`, création du fichier via redirection shell.
-- Résultat du build/test : Non applicable (mise à jour documentaire uniquement).
+- Fichiers modifiés : `.github/pull_request_template.md`, `.github/workflows/codex-decision-guard.yml`, `.github/workflows/verify-codex-logs.js`, `docs/CODEX_DECISIONS.md`, `docs/codex-log.jsonl`, `docs/adr/0000-template.md`, `scripts/codex-log.sh`, `scripts/codex-log.ps1`.  
+- Commandes exécutées : Création de fichiers via redirections shell (`cat <<'EOF' > file`), `mkdir -p` pour initialiser les dossiers.  
+- Résultat du build/test : Non exécuté (changement documentaire/CI uniquement).
 
 **Étapes suivantes**  
-- Actions à planifier : Documenter toute décision ou modification future selon ce modèle.
-- TODO / suivis : Aucune supplémentaire à ce stade.
-
-<!-- Les nouvelles entrées sont ajoutées en haut -->
+- Actions à planifier : Utiliser systématiquement les journaux lors de futures modifications de code applicatif.  
+- TODO / suivis : Ajouter des ADR spécifiques lors des futures décisions majeures.
