@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-toolbar color="primary">
+    <span>Planifier une action</span>
+  </mat-toolbar>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="actions-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.type.invalid">Type obligatoire</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date prévue</mat-label>
+      <input matInput type="date" formControlName="datePrevue" />
+      <mat-error *ngIf="form.controls.datePrevue.invalid">Date obligatoire</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="comment">
+      <mat-label>Commentaire</mat-label>
+      <textarea matInput rows="3" formControlName="commentaire"></textarea>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-flat-button color="primary" type="submit">Créer l'activité</button>
+    </div>
+  </form>
+</mat-card>

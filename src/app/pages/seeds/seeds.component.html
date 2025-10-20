@@ -1,0 +1,11 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let lot of lots">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ lot.variety }}</mat-panel-title>
+      <mat-panel-description>
+        {{ 'SEEDS.YEAR' | translate:{ year: lot.year } }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>{{ 'SEEDS.QUANTITY' | translate:{ quantity: lot.quantity } }}</p>
+  </mat-expansion-panel>
+</mat-accordion>

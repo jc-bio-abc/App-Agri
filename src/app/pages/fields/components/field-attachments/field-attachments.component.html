@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-toolbar color="primary">
+    <span>Pièces jointes</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="addAttachment.emit()" matTooltip="Ajouter une pièce jointe">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div *ngIf="attachments?.length; else empty" class="attachments">
+    <mat-list>
+      <mat-list-item *ngFor="let attachment of attachments; trackBy: trackById">
+        <mat-icon matListItemIcon>{{ attachment.type === 'photo' ? 'photo' : 'description' }}</mat-icon>
+        <div matListItemTitle>{{ attachment.name }}</div>
+        <div matListItemLine>{{ attachment.createdAt | date: 'shortDate' }}</div>
+        <a mat-icon-button *ngIf="attachment.url" [href]="attachment.url" target="_blank" rel="noopener">
+          <mat-icon>open_in_new</mat-icon>
+        </a>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <ng-template #empty>
+    <div class="empty">Aucun fichier</div>
+  </ng-template>
+</mat-card>

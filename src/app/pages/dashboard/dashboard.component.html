@@ -1,0 +1,7 @@
+<section class="grid">
+  <mat-card *ngFor="let widget of widgets" class="widget">
+    <mat-icon>{{ widget.icon }}</mat-icon>
+    <h2>{{ widget.value }}</h2>
+    <p>{{ widget.label | translate }}</p>
+  </mat-card>
+</section>

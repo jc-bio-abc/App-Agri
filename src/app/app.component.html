@@ -1,0 +1,37 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav #sidenav mode="side" opened>
+    <div class="sidenav-header">
+      <h1>{{ title }}</h1>
+      <p>{{ 'NAV.WELCOME' | translate:{ name: user.name } }}</p>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let link of links" [routerLink]="link.path" (click)="sidenav?.close()">
+        <mat-icon matListIcon>{{ link.icon }}</mat-icon>
+        <span matLine>{{ link.label | translate }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav?.toggle()" class="mobile-toggle">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>{{ title }}</span>
+      <span class="toolbar-spacer"></span>
+      <button mat-button [matMenuTriggerFor]="langMenu">
+        <mat-icon>translate</mat-icon>
+        {{ 'NAV.LANGUAGE' | translate }}
+      </button>
+      <mat-menu #langMenu="matMenu">
+        <button mat-menu-item (click)="switchLanguage('fr')">FR</button>
+        <button mat-menu-item (click)="switchLanguage('en')">EN</button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
