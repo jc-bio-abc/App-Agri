@@ -1,0 +1,14 @@
+.fields-map {
+  display: flex;
+  justify-content: center;
+}
+
+.fields-map__card {
+  max-width: 560px;
+  width: 100%;
+}
+
+.fields-map__coordinates {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.54);
+}

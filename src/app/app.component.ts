@@ -1,48 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { AuthService } from './core/services/auth.service';
-import { ContextService } from './core/services/context.service';
-import { TranslateService } from '@ngx-translate/core';
-
-interface NavLink {
-  path: string;
-  label: string;
-  icon: string;
-}
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: '<router-outlet></router-outlet>'
 })
-export class AppComponent {
-  @ViewChild('sidenav') sidenav?: MatSidenav;
-
-  readonly title = 'App Agricole';
-  readonly user = this.auth.getCurrentUser();
-  readonly context = this.contextService.getCurrentContext();
-
-  readonly links: NavLink[] = [
-    { path: 'dashboard', label: 'NAV.DASHBOARD', icon: 'dashboard' },
-    { path: 'parcelles', label: 'NAV.FIELDS', icon: 'terrain' },
-    { path: 'planification', label: 'NAV.PLANNING', icon: 'event' },
-    { path: 'activites', label: 'NAV.ACTIVITIES', icon: 'task' },
-    { path: 'entrepots', label: 'NAV.WAREHOUSES', icon: 'warehouse' },
-    { path: 'produits', label: 'NAV.PRODUCTS', icon: 'local_florist' },
-    { path: 'semences', label: 'NAV.SEEDS', icon: 'spa' }
-  ];
-
-  constructor(
-    private readonly auth: AuthService,
-    private readonly contextService: ContextService,
-    private readonly translate: TranslateService
-  ) {
-    this.translate.addLangs(['fr', 'en']);
-    this.translate.setDefaultLang('fr');
-    this.translate.use('fr');
-  }
-
-  switchLanguage(lang: string): void {
-    this.translate.use(lang);
-  }
-}
+export class AppComponent {}

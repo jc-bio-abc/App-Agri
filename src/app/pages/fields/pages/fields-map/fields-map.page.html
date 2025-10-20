@@ -1,0 +1,15 @@
+<section class="fields-map">
+  <mat-card class="fields-map__card">
+    <mat-card-title>{{ 'FIELDS.MAP.TITLE' | translate }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ 'FIELDS.MAP.DESCRIPTION' | translate }}</p>
+      <mat-list>
+        <mat-list-item *ngFor="let field of fieldLocations">
+          <mat-icon matListIcon>pin_drop</mat-icon>
+          <div matLine>{{ field.name }}</div>
+          <div matLine class="fields-map__coordinates">{{ field.coordinates }}</div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</section>
