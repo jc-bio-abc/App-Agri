@@ -1,0 +1,30 @@
+<form class="field-actions-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="field-actions-form__row">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'FIELDS.ACTIONS.ACTION' | translate }}</mat-label>
+      <input matInput formControlName="action" required />
+      <mat-error *ngIf="form.controls.action.hasError('required')">
+        {{ 'COMMON.ERRORS.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'FIELDS.ACTIONS.DATE' | translate }}</mat-label>
+      <input matInput type="date" formControlName="date" required />
+      <mat-error *ngIf="form.controls.date.hasError('required')">
+        {{ 'COMMON.ERRORS.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="fill" class="field-actions-form__notes">
+    <mat-label>{{ 'FIELDS.ACTIONS.NOTES' | translate }}</mat-label>
+    <textarea matInput formControlName="notes" rows="3"></textarea>
+  </mat-form-field>
+
+  <div class="field-actions-form__actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      {{ 'FIELDS.ACTIONS.SAVE' | translate }}
+    </button>
+  </div>
+</form>

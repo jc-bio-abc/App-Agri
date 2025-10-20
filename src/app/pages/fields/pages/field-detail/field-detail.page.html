@@ -1,0 +1,23 @@
+<ng-container *ngIf="field; else notFound">
+  <mat-card class="field-detail">
+    <mat-card-header>
+      <mat-card-title>{{ field.name }}</mat-card-title>
+      <mat-card-subtitle>{{ field.crop | translate }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ 'FIELDS.AREA' | translate:{ value: field.area } }}</p>
+      <mat-chip color="primary" selected>
+        {{ ('FIELDS.STATUS.' + field.status) | translate }}
+      </mat-chip>
+      <p>{{ field.description | translate }}</p>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #notFound>
+  <mat-card class="field-detail field-detail--empty">
+    <mat-card-content>
+      {{ 'FIELDS.NOT_FOUND' | translate }}
+    </mat-card-content>
+  </mat-card>
+</ng-template>

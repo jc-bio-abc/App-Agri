@@ -1,0 +1,21 @@
+<form class="field-filters" [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'FIELDS.FILTERS.SEARCH' | translate }}</mat-label>
+    <input matInput formControlName="search" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'FIELDS.FILTERS.CROP' | translate }}</mat-label>
+    <mat-select formControlName="crop">
+      <mat-option value="">{{ 'COMMON.ALL' | translate }}</mat-option>
+      <mat-option *ngFor="let crop of crops" [value]="crop">
+        {{ ('CROPS.' + crop) | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'FIELDS.FILTERS.MIN_AREA' | translate }}</mat-label>
+    <input matInput type="number" min="0" formControlName="minArea" />
+  </mat-form-field>
+</form>
