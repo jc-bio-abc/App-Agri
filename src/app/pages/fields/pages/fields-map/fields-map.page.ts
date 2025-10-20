@@ -14,7 +14,7 @@ import { FieldsGeoService } from '../../services/fields-geo.service';
   styleUrls: ['./fields-map.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FieldsMapPage implements AfterViewInit, OnDestroy {
+export class FieldsMapPageComponent implements AfterViewInit, OnDestroy {
   private map?: L.Map;
   private layers: Record<string, L.Layer> = {};
   private subscription?: Subscription;

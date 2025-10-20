@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from './core/services/auth.service';
 import { ContextService } from './core/services/context.service';
@@ -18,6 +18,10 @@ interface NavLink {
 export class AppComponent {
   @ViewChild('sidenav') sidenav?: MatSidenav;
 
+  private readonly auth = inject(AuthService);
+  private readonly contextService = inject(ContextService);
+  private readonly translate = inject(TranslateService);
+
   readonly title = 'App Agricole';
   readonly user = this.auth.getCurrentUser();
   readonly context = this.contextService.getCurrentContext();
@@ -32,11 +36,7 @@ export class AppComponent {
     { path: 'semences', label: 'NAV.SEEDS', icon: 'spa' }
   ];
 
-  constructor(
-    private readonly auth: AuthService,
-    private readonly contextService: ContextService,
-    private readonly translate: TranslateService
-  ) {
+  constructor() {
     this.translate.addLangs(['fr', 'en']);
     this.translate.setDefaultLang('fr');
     this.translate.use('fr');

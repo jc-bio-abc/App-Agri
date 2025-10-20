@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -15,6 +15,8 @@ import type { FieldFilters } from '../../services/fields.service';
 export class FieldFiltersComponent implements OnInit, OnDestroy {
   @Output() readonly filtersChange = new EventEmitter<FieldFilters>();
 
+  private readonly fb = inject(FormBuilder);
+
   readonly form = this.fb.group({
     search: [''],
     statut: [[] as Field['statut'][]],
@@ -25,8 +27,6 @@ export class FieldFiltersComponent implements OnInit, OnDestroy {
   readonly modeOptions: Field['modeProduction'][] = ['bio', 'conversion_annee1', 'conversion_annee2', 'conventionnel'];
 
   private readonly destroy$ = new Subject<void>();
-
-  constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form.valueChanges

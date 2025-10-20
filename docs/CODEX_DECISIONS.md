@@ -30,6 +30,26 @@
 ## Entrées
 <!-- Les nouvelles entrées sont ajoutées en haut -->
 
+### [2025-10-20] Résolution conflits PR #4 et build Fields
+**Contexte**
+- Problème / besoin initial : La branche de la PR #4 présentait des conflits sur le module `fields` et le composant `warehouses`, empêchant le merge et bloquant le build Angular.
+- Zone de code concernée : `src/app/pages/fields/**`, `src/app/pages/warehouses/warehouses.component.html`, `src/app/app.component.ts`, modules de fonctionnalités (`dashboard`, `activities`, `planning`, `products`, `seeds`, `warehouses`).
+- Contrainte(s) (versions, libs, CI/CD, sécurité, etc.) : TypeScript strict avec Angular 17, respect du lazy loading, compatibilité Angular Material/ngx-translate, exécution `ng build` réussie malgré les dépendances CommonJS (Leaflet).
+
+**Décision**
+- Changement(s) effectué(s) : Harmonisation des classes suffixées `PageComponent` dans le routing/lazy module, corrections des bindings Material, ajout systématique de `TranslateModule` dans les modules de pages, adoption d'`inject()` pour éliminer les initialisations avant injection, ajout des modules Material manquants et mise à jour des formulaires réactifs.
+- Alternatives envisagées (et raisons du rejet) : Revenir à des composants standalone (rejeté pour limiter l’ampleur de refactor), désactiver la vérification stricte TypeScript (rejeté pour préserver la robustesse), supprimer les fonctionnalités utilisant Leaflet (rejeté car hors périmètre fonctionnel).
+- Risques / impact / compat : Build plus lourd (avertissement budget initial), dépendance Leaflet signalée en CommonJS mais acceptable à court terme ; nécessite suivi si budgets doivent être optimisés.
+
+**Détails d’implémentation**
+- Fichiers modifiés : `src/app/pages/fields/fields-routing.module.ts`, `src/app/pages/fields/fields.module.ts`, `src/app/pages/fields/pages/**/*.ts`, `src/app/pages/fields/components/**/*`, `src/app/pages/*/*.module.ts`, `src/app/pages/warehouses/warehouses.component.html`, `src/app/app.component.ts`, `docs/CODEX_DECISIONS.md`, `docs/codex-log.jsonl`.
+- Commandes exécutées : `npm install`, `CI=1 NG_CLI_ANALYTICS=false npx ng build --verbose`.
+- Résultat du build/test : `ng build` réussi avec avertissements (Leaflet CommonJS, budget initial).
+
+**Étapes suivantes**
+- Actions à planifier : Surveiller l’avertissement de dépendance CommonJS Leaflet et le budget bundle ; prévoir une optimisation ultérieure.
+- TODO / suivis : Valider via PR que les traductions sont complètes et envisager un partage de modules Material/Translate communs.
+
 ### [2025-10-20] Ajout du système de traçabilité Codex
 **Contexte**  
 - Problème / besoin initial : Absence de processus structuré pour tracer les décisions techniques prises par Codex.  

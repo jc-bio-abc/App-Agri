@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -21,7 +21,12 @@ interface JournalEntry {
   styleUrls: ['./field-detail.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FieldDetailPage {
+export class FieldDetailPageComponent {
+  private readonly route = inject(ActivatedRoute);
+  private readonly fieldsService = inject(FieldsService);
+  private readonly activitiesService = inject(ActivitiesSyncService);
+  private readonly snackBar = inject(MatSnackBar);
+
   private readonly fieldId$ = this.route.paramMap.pipe(
     map((params) => params.get('id')),
     filter((id): id is string => id !== null)
@@ -35,13 +40,6 @@ export class FieldDetailPage {
     { id: 'j-1', date: '2024-08-30T10:00:00Z', author: 'Jean-Charles', message: 'Contrôle adventices réalisé.' },
     { id: 'j-2', date: '2024-09-12T16:30:00Z', author: 'Amandine', message: 'Irrigation annulée (pluie prévue).' }
   ];
-
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly fieldsService: FieldsService,
-    private readonly activitiesService: ActivitiesSyncService,
-    private readonly snackBar: MatSnackBar
-  ) {}
 
   createActivity(activity: Activity): void {
     this.activitiesService

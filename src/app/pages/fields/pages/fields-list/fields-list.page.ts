@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -15,20 +15,18 @@ import { ImportsService, MinimalFile } from '../../services/imports.service';
   styleUrls: ['./fields-list.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FieldsListPage {
+export class FieldsListPageComponent {
+  private readonly fieldsService = inject(FieldsService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly exportsService = inject(ExportsService);
+  private readonly importsService = inject(ImportsService);
+  private readonly snackBar = inject(MatSnackBar);
+
   readonly fields$: Observable<Field[]> = this.fieldsService.getFilteredFields();
   readonly stats$ = this.fieldsService.getStats();
 
   displayedColumns: Array<keyof Field | 'actions'> = ['nom', 'surfaceHa', 'statut', 'modeProduction', 'actions'];
-
-  constructor(
-    private readonly fieldsService: FieldsService,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-    private readonly exportsService: ExportsService,
-    private readonly importsService: ImportsService,
-    private readonly snackBar: MatSnackBar
-  ) {}
 
   onFiltersChange(filters: FieldFilters): void {
     this.fieldsService.updateFilters(filters);

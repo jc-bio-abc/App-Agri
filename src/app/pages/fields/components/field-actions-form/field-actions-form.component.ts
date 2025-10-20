@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import type { Activity, ActivityType } from '../../models/field.models';
@@ -15,13 +15,13 @@ export class FieldActionsFormComponent implements OnInit {
 
   readonly types: ActivityType[] = ['semis', 'labour', 'pulverisation', 'recolte', 'autre'];
 
+  private readonly fb = inject(FormBuilder);
+
   readonly form = this.fb.nonNullable.group({
     type: ['semis' as ActivityType, Validators.required],
     datePrevue: ['', Validators.required],
     commentaire: ['']
   });
-
-  constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit(): void {
     if (!this.fieldId) {
