@@ -30,6 +30,26 @@
 ## Entrées
 <!-- Les nouvelles entrées sont ajoutées en haut -->
 
+### [2025-10-20] Résolution finale conflits PR #4
+**Contexte**
+- Problème / besoin initial : Conflits persistants sur la PR #4 entre la branche de travail et main, accompagnés d'erreurs Angular (imports Material manquants, bindings obsolètes) empêchant le build.
+- Zone de code concernée : angular.json, app.component/app.module, modules des pages (fields, dashboard, activities, planning, products, seeds, warehouses) et template entrepôts.
+- Contrainte(s) (versions, libs, CI/CD, sécurité, etc.) : Compatibilité Angular 17 avec lazy loading, strict mode TypeScript, respect du guard Codex et build `ng build` sans échec.
+
+**Décision**
+- Changement(s) effectué(s) : Nettoyage de l'app shell pour ne conserver que le router-outlet, normalisation des modules pour importer les dépendances Angular/Material requises, ajout des modules Material oubliés (list, expansion, toolbar) et correction des bindings Material.
+- Alternatives envisagées (et raisons du rejet) : Revenir à la structure multi-layout précédente (rejeté pour éviter de rouvrir les conflits UI) ; ignorer les avertissements Material en supprimant les composants concernés (rejeté pour conserver la couverture fonctionnelle).
+- Risques / impact / compat : Duplication d'import Material dans plusieurs modules (à mutualiser plus tard) et avertissement CommonJS Leaflet à suivre.
+
+**Détails d’implémentation**
+- Fichiers modifiés : angular.json, src/app/app.component.ts, src/app/app.module.ts, src/app/pages/*/*.module.ts, src/app/pages/fields/fields.module.ts, src/app/pages/fields/components/field-attachments/field-attachments.component.html, src/app/pages/warehouses/warehouses.component.html.
+- Commandes exécutées : npm install ; CI=1 NG_CLI_ANALYTICS=false npx ng build --verbose.
+- Résultat du build/test : Build Angular réussi (avertissement CommonJS Leaflet acceptable).
+
+**Étapes suivantes**
+- Actions à planifier : Mutualiser les modules Material partagés et traiter l'avertissement CommonJS via configuration allowedCommonJsDependencies.
+- TODO / suivis : Vérifier via CI Codex Decision Guard que les journaux sont bien pris en compte et surveiller la taille des bundles.
+
 ### [2025-10-20] Résolution conflits PR #4 et build Fields
 **Contexte**
 - Problème / besoin initial : La branche de la PR #4 présentait des conflits sur le module `fields` et le composant `warehouses`, empêchant le merge et bloquant le build Angular.
